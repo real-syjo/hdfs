@@ -36,7 +36,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		OAuth2User oauth2User  = super.loadUser(userRequest);
 		Oauth2UserInfo oAuth2UserInfo = null;
 
-		if(userRequest.getClientRegistration().getRegistrationId().equals("google")) {
+		if(userRequest.getClientRegistration().getRegistrationId().equals("google")) { 
 			oAuth2UserInfo = new GoogleUserInfo(oauth2User.getAttributes());
 		}else if(userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
 			oAuth2UserInfo = new FacebookUserInfo(oauth2User.getAttributes());
@@ -51,9 +51,10 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		String password= bCryptPasswordEncoder.encode("겟인데어");
 		String role = "USER_ROLE";
 		
+		System.out.println("=====>"+providerId+"//"+provider+"//"+username+"//"+password+"//"+role);
 //		User userEntity = userRepository.findByUsername(username);
 		User userEntity = userRepository.findByProviderid(providerId);
-		
+		System.out.println("11userEntit=====>"+userEntity);
 		if(userEntity == null) {
 			userEntity = User.builder()
 					.username(username)
@@ -62,7 +63,10 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 					.provider(provider)
 					.providerid(providerId)
 					.build();
+			System.out.println("22userEntit=====>"+userEntity);
 			userRepository.save(userEntity);
+		}else {
+			System.out.println("로그인을 한적이썽욧");
 		}
 		
 		return new PrincipalDetails(userEntity, oauth2User.getAttributes());

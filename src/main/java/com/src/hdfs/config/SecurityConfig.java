@@ -29,16 +29,15 @@ public class SecurityConfig {
 			//.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 			.anyRequest().permitAll()
 			.and()
-			.formLogin()
-			.loginPage("/loginForm")
-			.loginProcessingUrl("/login") 
-			.defaultSuccessUrl("/user")
-			.failureForwardUrl("/")
+				.formLogin()
+				.loginPage("/loginForm")
+				.loginProcessingUrl("/login") 
+				.defaultSuccessUrl("/user")
 			.and() 
-			.oauth2Login()
-			.loginPage("/user") 
-			.userInfoEndpoint()
-			.userService(principalDetailsService); 
+				.oauth2Login()
+				.loginPage("/user") 
+				.userInfoEndpoint()
+				.userService(principalDetailsService); 
 		
 		return http.build();
 	}
