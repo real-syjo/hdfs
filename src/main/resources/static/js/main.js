@@ -34,7 +34,7 @@ var totalFileCount, fileUploadCount, fileSize;
 	function uploadFile() {
 		var name = document.getElementById('name').innerText;
 		var dir = name.split('@')[0];
-		var url ="http://localhost:3000/upload?name="+dir;
+		var url ="http://52.78.34.69:3000/upload?name="+dir;
 		var file = document.getElementById('files').files[fileUploadCount];
 		
 		fileSize = file.size;
