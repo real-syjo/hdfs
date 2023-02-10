@@ -30,7 +30,8 @@ repositories {
 }
 
 dependencies {
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	//providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.2.3-1'
 
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
@@ -40,16 +41,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	
-	implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.18'
-	
+
 	//HDFS
 	implementation group: 'org.apache.hadoop', name: 'hadoop-core', version: '1.2.1'
 	compileOnly group: 'org.apache.hadoop', name: 'hadoop-client', version: '3.2.4'
