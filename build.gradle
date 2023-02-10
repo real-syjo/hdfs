@@ -30,12 +30,9 @@ repositories {
 }
 
 dependencies {
-	//providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.2.3-1'
 
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-	compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
-
+	implementation 'javax.servlet:jstl'
 	
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
@@ -47,6 +44,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
 
 	//HDFS
 	implementation group: 'org.apache.hadoop', name: 'hadoop-core', version: '1.2.1'
