@@ -34,7 +34,7 @@ public class User implements Serializable {
 	public Timestamp lastdate;
 	
 	@Builder
-	public User(Integer id, String username, String password, String role, String provider, String providerid,
+	public User(int id, String username, String password, String role, String provider, String providerid,
 			Timestamp createdate, Timestamp lastdate) {
 		super();
 		this.id = id;
@@ -46,6 +46,8 @@ public class User implements Serializable {
 		this.createdate = createdate;
 		this.lastdate = lastdate;
 	}
+	
+
 
 
 

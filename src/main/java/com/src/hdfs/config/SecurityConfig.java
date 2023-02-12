@@ -16,6 +16,8 @@ import com.src.hdfs.config.oauth.PrincipalOauth2UserService;
 @EnableGlobalMethodSecurity(securedEnabled=true, prePostEnabled = true) //secured 어노테이션을 활성화, preAuthorize/postAutorize 활성화 
 public class SecurityConfig {
 	
+	private final CustomAuthFailureHandler authfailurehandler = new CustomAuthFailureHandler();
+	
 	@Autowired
 	private PrincipalOauth2UserService principalDetailsService;
 	
@@ -33,9 +35,11 @@ public class SecurityConfig {
 				.loginPage("/loginForm")
 				.loginProcessingUrl("/login") 
 				.defaultSuccessUrl("/user")
+				.failureHandler(authfailurehandler)
 			.and() 
 				.oauth2Login()
-				.loginPage("/user") 
+				.loginPage("/loginForm") 
+				.defaultSuccessUrl("/user")
 				.userInfoEndpoint()
 				.userService(principalDetailsService); 
 		

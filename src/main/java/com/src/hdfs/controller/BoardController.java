@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.src.hdfs.model.Board;
@@ -33,7 +32,6 @@ public class BoardController {
 		List<Board> boardList = boardRepository.findByUsername(username);
 		model.addAttribute("name", username);
 		model.addAttribute("boardList", boardList);
-		
 		return "list";
 	}
 	
@@ -52,10 +50,13 @@ public class BoardController {
 	}
 
 	//게시물 및 파일 삭제 
-	@GetMapping(value="/delFileList")
-	public void delFiles(@RequestParam Board board) {
-		String id = board.getBoardid();
-		boardRepository.deleteByBoardid(id);
-		fileRepository.deleteByBoardid(id);
+	@PostMapping(value="/delFileList")
+	public void  deleteFile(@RequestBody Board board) {
+		try {
+			boardRepository.deleteByBoardid(board.getBoardid());
+			fileRepository.deleteByBoardid(board.getBoardid());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	} 
 }

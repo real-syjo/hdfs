@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.src.hdfs.config.auth.PrincipalDetails;
 import com.src.hdfs.model.User;
@@ -32,31 +33,55 @@ public class UserController {
 	@PostMapping("/")
 	public String loginFail(Model model) {
 		model.addAttribute("status", "계정이 없습니다");
+		System.out.println();
 		return "/loginForm";
 	}
 	@GetMapping("/main")
 	public String goMain(Authentication authentication,
 			@AuthenticationPrincipal PrincipalDetails userDetails) {
+		//세션정보확인!!!!!!!
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		return "/main";
 	}
-
+	
+	
 	@GetMapping("loginForm")
-	public String goLogin() {
-		return "/loginForm";
+	public String loginChk(@RequestParam(value="error", required = false)String error,
+			 				@RequestParam(value="exception", required =false)String exception,
+			 				Model model) {
+		model.addAttribute("error", error);
+		model.addAttribute("exception", exception);
+		return "loginForm";
 	}
 	
 	@PostMapping("/join")
-	public String goJoin(User user) {
-		user.setRole("USER_ROLE");
-		String email = user.getUsername();
-		String password = user.getPassword();
-		String enc = bcryptpasswordencoder.encode(password);
-		user.setUsername(email);
-		user.setPassword(enc);
+	public String goJoin(User user, Model model) {
 		
-		userRepository.save(user);
+		if(chk (user.getUsername())) {
+			model.addAttribute("status", "YY");
+		}else {
+			user.setRole("USER_ROLE");
+			String email = user.getUsername();
+			String password = user.getPassword();
+			String enc = bcryptpasswordencoder.encode(password);
+			user.setUsername(email);
+			user.setPassword(enc);
+			
+			userRepository.save(user);
+			model.addAttribute("status", "Y");
+		}
 		
-		return "redirect:/loginForm";
+		return "loginForm";
 	}
+	
+	public boolean chk (String username) {
+		User userChk = userRepository.findByUsername(username);
+		if (userChk != null) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+
 }

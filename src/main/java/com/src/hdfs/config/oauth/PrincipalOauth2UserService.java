@@ -28,8 +28,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 	@Autowired
 	UserRepository userRepository;
 	
-	//구글로부터 받은 userRequest 데이터에 대한 후처리되는 함수
-	//함수종료시 @AuthenticationPrincipal 어노테이션이 만들어 진다 
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		
@@ -51,10 +49,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		String password= bCryptPasswordEncoder.encode("겟인데어");
 		String role = "USER_ROLE";
 		
-		System.out.println("=====>"+providerId+"//"+provider+"//"+username+"//"+password+"//"+role);
-//		User userEntity = userRepository.findByUsername(username);
-		User userEntity = userRepository.findByProviderid(providerId);
-		System.out.println("11userEntit=====>"+userEntity);
+		User userEntity = userRepository.findByUsername(username);
+//		User userEntity = userRepository.findByProviderid(providerId);
 		if(userEntity == null) {
 			userEntity = User.builder()
 					.username(username)
@@ -63,10 +59,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 					.provider(provider)
 					.providerid(providerId)
 					.build();
-			System.out.println("22userEntit=====>"+userEntity);
 			userRepository.save(userEntity);
-		}else {
-			System.out.println("로그인을 한적이썽욧");
 		}
 		
 		return new PrincipalDetails(userEntity, oauth2User.getAttributes());

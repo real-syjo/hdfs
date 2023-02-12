@@ -56,12 +56,13 @@
 function downloadFile(name, dir) {
 	axios({
 		method: 'POST', //통신 방식
-		url: "http://localhost:3000/download/", //통신할 페이지
+		url: "http://52.78.34.69:3000/download/", //통신할 페이지
 		data: {
 			fileNm : name,
 			dir: dir
 		}
 	}).then(resData=>{
+		console.log(resData.data)
 		window.location.href =resData.data;
 	}).catch(error => {  
         console.log(error);
@@ -85,10 +86,11 @@ function getFileList(boardid, id){
 };
 
 function delBtn(boardid){
-	axios.get('/delFileList', {
+	axios.post('/delFileList', {
 		boardid:boardid,
 		}).then(res => {
 			alert("성공적으로 삭제되었습니다.")
+ 			location.href="/list"
 		}).catch(error => {
 			console.log(error);
 		});

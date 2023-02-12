@@ -178,9 +178,19 @@ var totalFileCount, fileUploadCount, fileSize;
 			$("#upload-header-text").html((fileUploadCount+1)+" of "+totalFileCount+" file(s) is uploading");
 		} else {
 			$("#upload-header-text").html("File(s) uploaded successfully!");
-			//location.href="list";
 		}
+			goList();
 	}
+	
+	function goList(){
+		axios.get('/list', {
+			}).then(response => {
+				location.href="list"
+			}).catch(error => {
+				console.log(error)
+			});
+	}
+	
 	//업로드 에러 
 	function onUploadError(e) {
 		console.error("Something went wrong!");startUploading()
