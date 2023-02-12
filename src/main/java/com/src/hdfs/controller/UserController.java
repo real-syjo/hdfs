@@ -24,17 +24,16 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptpasswordencoder; 
 	
+	@GetMapping({"/",""})
+	public String loginFail(Model model) {
+		return "/loginForm";
+	}
+	
 	@GetMapping("/user")
 	public String login(Model model, Principal principal) {
 		String name = principal.getName();
 		model.addAttribute("name", name);
 		return "/main";
-	}
-	@PostMapping("/")
-	public String loginFail(Model model) {
-		model.addAttribute("status", "계정이 없습니다");
-		System.out.println();
-		return "/loginForm";
 	}
 	@GetMapping("/main")
 	public String goMain(Authentication authentication,
@@ -57,18 +56,22 @@ public class UserController {
 	@PostMapping("/join")
 	public String goJoin(User user, Model model) {
 		
-		if(chk (user.getUsername())) {
-			model.addAttribute("status", "YY");
-		}else {
-			user.setRole("USER_ROLE");
-			String email = user.getUsername();
-			String password = user.getPassword();
-			String enc = bcryptpasswordencoder.encode(password);
-			user.setUsername(email);
-			user.setPassword(enc);
+		try {
+			if(chk (user.getUsername())) {
+				model.addAttribute("status", "YY");
+			}else {
+				user.setRole("USER_ROLE");
+				String email = user.getUsername();
+				String password = user.getPassword();
+				String enc = bcryptpasswordencoder.encode(password);
+				user.setUsername(email);
+				user.setPassword(enc);
+				
+				userRepository.save(user);
+				model.addAttribute("status", "Y");
+			}
+		}catch (Exception e) {
 			
-			userRepository.save(user);
-			model.addAttribute("status", "Y");
 		}
 		
 		return "loginForm";
