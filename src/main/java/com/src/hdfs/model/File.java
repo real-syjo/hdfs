@@ -19,6 +19,7 @@ public class File {
 	private int id;
 	
 	private String filenm;
+	private String orignm;
 	private int filesize;
 	private String filetype;
 	private String username;

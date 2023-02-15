@@ -62,7 +62,6 @@ function downloadFile(name, dir) {
 			dir: dir
 		}
 	}).then(resData=>{
-		console.log(resData.data)
 		window.location.href =resData.data;
 	}).catch(error => {  
         console.log(error);
@@ -71,7 +70,7 @@ function downloadFile(name, dir) {
 }
 function getFileList(boardid, id){
 	var elementId ='#fileList'+id;
-	var ele =elementId.replace(" ","")
+	var ele =elementId.split(' ').join('');
 	axios.post('/getFileList', {
 		boardid:boardid,
 		}).then(res => {
@@ -90,18 +89,20 @@ function delBtn(boardid){
 		boardid:boardid,
 		}).then(res => {
 			alert("성공적으로 삭제되었습니다.")
- 			location.href="/list"
+			location.reload();
 		}).catch(error => {
 			console.log(error);
 		});
 	
 	//하둡지우기 
-// 	axios.get('/delFileList', {
-// 		boardid:boardid,
-// 		}).then(res => {
-// 			alert("성공적으로 삭제되었습니다.")
-// 		}).catch(error => {
-// 			console.log(error);
-// 	});
+	axios.get('http://52.78.34.69:3000/delete/', {
+		boardid:boardid,
+		}).then(res => {
+			alert("성공적으로 삭제되었습니다.")
+		}).catch(error => {
+			console.log(error);
+	});
 }
+
+
 </script>

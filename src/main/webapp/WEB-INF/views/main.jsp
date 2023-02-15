@@ -15,11 +15,13 @@
 		</nav>
   
 		<h3 class="text-info">하둡 대용량 파일 업로드</h3>
-			<span>최대 파일사이즈 500mb  10개 파일  (ec2 서버 환경으로 하둡 권장 최소사양) </span>
+			<span>하둡서버에 파일업로드 가능 
+			 </span>
+			 <span id="chk"></span>
 			<a href="/list"><button type="button" class="btn btn-info" id="btn">파일저장소</button></a>
 		<hr>
 		<div style="margin-bottom: 20px">
-			<input type="file" id="files" multiple style="margin-bottom: 20px" />
+			<input type="file" id="files" multiple style="margin-bottom: 20px"  enctype="multipart/form-data"/>
 			<button class="btn btn-primary" type="button" onclick="startUploading()" ><i class="fa fa-upload"></i> Upload file</button>
 		</div>
 		<div id="upload-status-container">

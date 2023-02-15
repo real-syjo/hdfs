@@ -37,12 +37,10 @@ public class UserController {
 	}
 	@GetMapping("/main")
 	public String goMain(Authentication authentication,
-			@AuthenticationPrincipal PrincipalDetails userDetails) {
-		//세션정보확인!!!!!!!
+		@AuthenticationPrincipal PrincipalDetails userDetails) {
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		return "/main";
 	}
-	
 	
 	@GetMapping("loginForm")
 	public String loginChk(@RequestParam(value="error", required = false)String error,

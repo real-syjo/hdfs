@@ -27,7 +27,6 @@ public class BoardController {
 	//저장소 리스트 페이지
 	@GetMapping("list")
 	public String goList(Model model, Principal principal) {
-		
 		String username = principal.getName();
 		List<Board> boardList = boardRepository.findByUsername(username);
 		model.addAttribute("name", username);
@@ -39,24 +38,31 @@ public class BoardController {
 	@PostMapping(value="/saveBoardInfo")
 	@ResponseBody
 	public void saveBoardInfo (@RequestBody Board board, Principal principal) {
-			Integer totalSize = boardRepository.findAll().size() + 1;
+			String name = principal.getName();
+			int idx = name.indexOf("@");
+			String dir = name.substring(0,idx);
+			Integer totalSize = boardRepository.findByUsername(name).size()+1;
 			String code = "BRD";
-			String brdId = code + totalSize;
-			board.setBoardid(brdId);
-			board.setBoardnm("FILE_SET" + totalSize);
-			board.setUsername(principal.getName());
+			String brdId = code+"_"+dir+"_"+totalSize;
 			
+			board.setBoardid(brdId);
+			board.setBoardnm("FILE_SET"+totalSize);
+			board.setUsername(name);
 			boardRepository.save(board);
 	}
 
 	//게시물 및 파일 삭제 
 	@PostMapping(value="/delFileList")
-	public void  deleteFile(@RequestBody Board board) {
+	public String  deleteFile(@RequestBody Board board) {
 		try {
-			boardRepository.deleteByBoardid(board.getBoardid());
-			fileRepository.deleteByBoardid(board.getBoardid());
+			String boardId =board.getBoardid().toString();
+			boardRepository.deleteByBoardid(boardId);
+			fileRepository.deleteByBoardid(boardId);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-	} 
+		return "list";
+	}
+
 }
+	
