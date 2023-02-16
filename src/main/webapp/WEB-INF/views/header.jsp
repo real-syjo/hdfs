@@ -8,6 +8,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 
 <link href="css/main.css" rel="stylesheet">
 <script src="js/main.js" ></script>
