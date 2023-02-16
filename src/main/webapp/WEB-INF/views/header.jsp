@@ -11,6 +11,5 @@
 
 <link href="css/main.css" rel="stylesheet">
 <script src="js/main.js" ></script>
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 
 </head>
