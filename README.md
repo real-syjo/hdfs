@@ -1,3 +1,8 @@
-![image](https://user-images.githubusercontent.com/73776160/221003418-9fdb7529-7602-4d74-a45b-63a8b7378765.png)
+
 # hdfs
-hdfs
+hadoop server: AWS ec2 (t2.small)
+portal server: AWS ec2 (t2.micro)
+               Spring Boot / node.js
+DBMS: AWS RDB(Postgresql)
+
+![image](https://user-images.githubusercontent.com/73776160/221004811-793cfa9b-37fc-429c-989e-49d20cd9c5d7.png)
